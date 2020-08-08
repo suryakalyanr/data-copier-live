@@ -1,4 +1,5 @@
 from util import get_connection
+from loguru import logger
 
 
 def build_insert_query(table_name, column_names):
@@ -17,6 +18,8 @@ def insert_data(connection, cursor, query, data, batch_size=100):
     for rec in data:
         recs.append(rec)
         if count % batch_size == 0:
+            logger.debug(query)
+            logger.debug(recs)
             cursor.executemany(query, recs)
             connection.commit()
             recs = []
@@ -28,6 +31,8 @@ def insert_data(connection, cursor, query, data, batch_size=100):
 def load_table(db_details, data, column_names, table_name):
     target_db = db_details['TARGET_DB']
 
+    logger.debug(target_db)
+
     connection = get_connection(db_type=target_db['DB_TYPE'],
                                 db_host=target_db['DB_HOST'],
                                 db_name=target_db['DB_NAME'],
@@ -36,6 +41,8 @@ def load_table(db_details, data, column_names, table_name):
                                 )
     cursor = connection.cursor()
     query = build_insert_query(table_name, column_names)
+
+    logger.debug(query)
 
     insert_data(connection, cursor, query, data)
 

@@ -3,7 +3,7 @@ from mysql.connector import errorcode as ec
 import psycopg2
 import pandas as pd
 from config import DB_DETAILS
-
+from loguru import logger
 
 def load_db_details(env):
     return DB_DETAILS[env]
@@ -48,9 +48,11 @@ def get_connection(db_type, db_host, db_name, db_user, db_pass):
 
 def get_tables(path, table_list):
     tables = pd.read_csv(path, sep=':')
+    print ("The tables are:",tables)
     if table_list == 'all':
         return tables.query('to_be_loaded == "yes"')
     else:
         table_list_df = pd.DataFrame(table_list.split(','), columns=['table_name'])
+        print ("The columns are:",table_list_df)
         return tables.join(table_list_df.set_index('table_name'), on='table_name', how='inner'). \
             query('to_be_loaded == "yes"')

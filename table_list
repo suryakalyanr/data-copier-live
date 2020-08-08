@@ -1,7 +1,8 @@
 table_name:to_be_loaded
-customers:yes
-departments:yes
-categories:yes
-products:yes
-orders:yes
-order_items:yes
+customers:no
+departments:no
+categories:no
+products:no
+orders:no
+order_items:no
+salary:yes
