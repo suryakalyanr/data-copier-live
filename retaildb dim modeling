@@ -1,0 +1,153 @@
+
+Conceptual data model:-
+
+Entities
+
+Categories
+Customers
+Departments
+Products
+Orders
+
+
+Table: categories
+Columns:
+category_id int AI PK
+category_department_id int
+category_name varchar(45)
+
+
+Table: customers
+Columns:
+customer_id int AI PK
+customer_fname varchar(45)
+customer_lname varchar(45)
+customer_email varchar(45)
+customer_password varchar(45)
+customer_street varchar(255)
+customer_city varchar(45)
+customer_state varchar(45)
+customer_zipcode varchar(45)
+
+
+Table: departments
+Columns:
+department_id int AI PK
+department_name varchar(45)
+
+
+
+Table: order_items
+Columns:
+order_item_id int AI PK
+order_item_order_id int
+order_item_product_id int
+order_item_quantity tinyint
+order_item_subtotal float
+order_item_product_price float
+
+
+
+Table: orders
+Columns:
+order_id int AI PK
+order_date datetime
+order_customer_id int
+order_status varchar(45)
+
+
+
+Table: products
+Columns:
+product_id int AI PK
+product_category_id int
+product_name varchar(45)
+product_description varchar(255)
+product_price float
+product_image varchar(255)
+
+
+
+--------------------------------
+
+
+Dim_Table:- customers_dim_2
+customer_dim_id int AI PK
+customer_id int
+customer_fname varchar(45)
+customer_lname varchar(45)
+customer_email varchar(45)
+customer_password varchar(45)
+customer_street varchar(255)
+customer_city varchar(45)
+customer_state varchar(45)
+customer_zipcode varchar(45)
+curr_in int
+dw_eff_dt datetime
+dw_exp_dt datetime
+
+
+Dim_Table:- products_dim_2
+product_dim_id int AI PK
+product_id int
+department_name varchar(45)
+category_name varchar(45)
+product_category_id int
+product_name varchar(45)
+product_description varchar(255)
+product_price float
+product_image varchar(255)
+curr_in int
+dw_eff_dt datetime
+dw_exp_dt datetime
+
+
+Dim_Table:- date_dim
+
+date_num int(8) ,    -- numeric value, in YYYYMMDD, 20080818
+date datetime ,     -- date: 2008-08-18 00:00:00
+day_num int (2),    -- numeric value, 18
+day_of_year int(4), -- the day of the year
+day_of_week int(2), -- the day of the week
+day_of_week_name varchar(20), -- day of week name (Monday, Tuesday,etc)
+week_num int (2), --  week of the year
+week_begin_date datetime,  -- week begin date
+week_end_date datetime, -- week end date
+last_week_begin_date datetime,  -- priore week begin date
+last_week_end_date datetime,   priore week end date
+last_2_week_begin_date  datetime,   -- priore two week begin date
+last_2_week_end_date datetime,  -- priore two ween end date
+month_num int (2) ,  -- month in number, ie. 12
+month_name varchar(20),  -- month in name, ie. December
+yearmonth_num int(6),  -- year and month in number, ie. 201212
+last_month_num int (2), -- priore month in number, ie. 11
+last_month_name varchar(20), -- priore month in name, November
+last_month_year int(4),  -- priore month in year, 2012
+last_yearmonth_num int(6), -- priore year and month in  number, ie, 2o1211
+quarter_num int (2),  -- quarter in number, ie 4
+year_num int (4), -- year in number, ie, 2012
+created_date timestamp not null  ,  -- date record was created
+updated_date timestamp not null , -- date record was updated
+primary key (date_num)
+
+
+
+Fact_table: order_items_fact
+Columns:-
+
+order_items_f_id int AI PK
+order_dim_id int FK			order_dim surr key
+product_dim_id int FK		prod_dim surr key
+customer_dim_id int FK		cust_dim surr key
+order_date_dim_key int
+
+order_item_quantity tinyint
+order_item_subtotal float
+order_item_product_price float
+order_status varchar(20)
+
+curr_in int
+dw_eff_date datetime
+dw_exp_date datetime
+
+

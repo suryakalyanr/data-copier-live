@@ -12,12 +12,12 @@ def main():
     env = sys.argv[1]
     a_tables = sys.argv[2]
     logger.add("logs/data-copier.info",
-               rotation="1 MB",
+               rotation="1 KB",
                retention="10 days",
                level="INFO"
                )
     logger.add("logs/data-copier.err",
-               rotation="1 MB",
+               rotation="1 KB",
                retention="10 days",
                level="ERROR"
                )

@@ -3,6 +3,6 @@ customers:no
 departments:no
 categories:no
 products:no
-orders:no
+orders:yes
 order_items:no
 salary:yes

@@ -20,12 +20,12 @@ def insert_data(connection, cursor, query, data, batch_size=100):
         if count % batch_size == 0:
             logger.debug(query)
             logger.debug(recs)
-            cursor.executemany(query, recs)
-            connection.commit()
+            #cursor.executemany(query, recs)
+            #connection.commit()
             recs = []
         count = count + 1
-    cursor.executemany(query, recs)
-    connection.commit()
+    #cursor.executemany(query, recs)
+    #connection.commit()
 
 
 def load_table(db_details, data, column_names, table_name):
